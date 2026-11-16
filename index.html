@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F4F6F9">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="블로그편집국">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="블로그편집국 대시보드 v2 · 전체 8건 발행완료 5건 발행대기 3건 · 5-AI 라이브 스테이션 · 스레드 문구 복사">
+<title>블로그편집국 대시보드 · 2026-11-16</title>
+<style>
+:root{
+  --bg:#F4F6F9; --card:#FFFFFF; --card2:#F7F9FB; --line:#E5E8EB; --line2:#EEF1F4;
+  --ink:#191F28; --ink2:#4E5968; --sub:#8B95A1;
+  --blue:#3182F6; --blue-soft:#E8F0FE; --green:#0CA678; --green-soft:#E3F7F0;
+  --amber:#F59F00; --amber-soft:#FFF6E5; --shadow:0 1px 2px rgba(25,31,40,.04),0 14px 30px -24px rgba(25,31,40,.55);
+}
+html[data-theme="dark"]{
+  --bg:#0F1216; --card:#171B21; --card2:#1B2027; --line:#262C35; --line2:#20262D;
+  --ink:#EDF1F5; --ink2:#B7C0CA; --sub:#79828E;
+  --blue:#4E96FF; --blue-soft:#16263A; --green:#2BD3A2; --green-soft:#10281F;
+  --amber:#FFB93F; --amber-soft:#2B2113; --shadow:0 1px 2px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;color-scheme:light}
+html[data-theme="dark"]{color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5;
+ font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard Variable",Pretendard,"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+ -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.wrap{max-width:520px;margin:0 auto;padding:18px 16px calc(36px + env(safe-area-inset-bottom))}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+
+/* ---------- header ---------- */
+.hdr{display:flex;align-items:flex-start;gap:10px;justify-content:space-between}
+.eyebrow{font-size:10px;font-weight:800;letter-spacing:.18em;color:var(--sub)}
+h1{font-size:24px;line-height:1.2;letter-spacing:-.04em;font-weight:800;margin:4px 0 0}
+h1 span{color:var(--blue)}
+.basis{margin:6px 0 0;font-size:11.5px;color:var(--sub);letter-spacing:-.01em}
+.basis b{color:var(--ink2);font-weight:700}
+.tbtn{flex:0 0 auto;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);
+ display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink2);
+ box-shadow:var(--shadow)}
+.tbtn svg{width:18px;height:18px;display:block}
+.tbtn .sun{display:none}
+html[data-theme="dark"] .tbtn .sun{display:block}
+html[data-theme="dark"] .tbtn .moon{display:none}
+.qlinks{display:flex;gap:7px;margin-top:13px;overflow-x:auto;padding-bottom:1px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.qlinks::-webkit-scrollbar{display:none}
+.qlinks a{flex:0 0 auto;font-size:12px;font-weight:700;padding:8px 11px;border-radius:10px;border:1px solid var(--line);
+ background:var(--card);color:var(--ink2);display:flex;gap:4px;align-items:center}
+.qlinks a i{font-style:normal;color:var(--sub);font-size:10px}
+
+/* ---------- stats ---------- */
+.stats{display:flex;align-items:center;margin-top:14px;background:var(--card);border:1px solid var(--line);
+ border-radius:16px;padding:13px 4px;box-shadow:var(--shadow)}
+.stat{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;position:relative}
+.stat+.stat::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:1px;background:var(--line2)}
+.sv{font-size:23px;font-weight:800;letter-spacing:-.04em;line-height:1.15;font-variant-numeric:tabular-nums}
+.sv.ok{color:var(--green)} .sv.wait{color:var(--amber)}
+.sl{font-size:10.5px;font-weight:700;color:var(--sub);letter-spacing:-.01em}
+
+/* ---------- panel ---------- */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;margin-top:12px;box-shadow:var(--shadow)}
+.phead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:11px}
+.phead h2{font-size:13px;font-weight:800;margin:0;letter-spacing:-.02em}
+.pmeta{font-size:10px;font-weight:700;color:var(--sub)}
+.baton{display:flex;align-items:center;gap:6px;background:var(--amber-soft);border-radius:10px;padding:9px 11px;
+ font-size:11.5px;color:var(--ink2);margin-bottom:12px;line-height:1.35}
+.baton b{color:var(--ink);font-weight:800;flex:0 0 auto}
+.bdot{width:6px;height:6px;border-radius:50%;background:var(--amber);flex:0 0 auto}
+
+.ailist{list-style:none;margin:0;padding:0}
+.airow{display:flex;gap:9px;padding:9px 0;border-top:1px solid var(--line2)}
+.airow:first-child{border-top:0;padding-top:2px}
+.dot{flex:0 0 auto;width:7px;height:7px;border-radius:50%;margin-top:6px;background:var(--sub);opacity:.45}
+.dot.live{background:var(--green);opacity:1;box-shadow:0 0 0 0 rgba(12,166,120,.55);animation:pulse 2.4s infinite}
+.dot.wait{background:var(--amber);opacity:1}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(12,166,120,.5)}70%{box-shadow:0 0 0 7px rgba(12,166,120,0)}100%{box-shadow:0 0 0 0 rgba(12,166,120,0)}}
+.aibody{min-width:0;flex:1}
+.aitop{display:flex;align-items:center;gap:5px;flex-wrap:wrap;line-height:1.3}
+.aitop b{font-size:12.5px;font-weight:800;letter-spacing:-.01em}
+.aien{font-size:9.5px;font-weight:700;color:var(--sub);letter-spacing:.02em}
+.airo{font-size:10px;font-weight:700;color:var(--ink2);background:var(--card2);border-radius:5px;padding:1px 5px}
+.aist{margin-left:auto;font-size:9.5px;font-weight:800;border-radius:5px;padding:1px 6px;white-space:nowrap}
+.aist.live{color:var(--green);background:var(--green-soft)}
+.aist.idle{color:var(--sub);background:var(--card2)}
+.ainow{margin:4px 0 0;font-size:11.5px;color:var(--ink2);line-height:1.5}
+.ailast{margin:2px 0 0;font-size:10.5px;color:var(--sub);line-height:1.5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ailast span{font-weight:800;color:var(--ink2);margin-right:4px}
+.sched{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px;display:grid;gap:5px}
+.srowi{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--sub);min-width:0}
+.snm{font-weight:750;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1 1 auto}
+.sev{flex:0 0 auto;font-weight:800;color:var(--blue)}
+.stm{flex:0 0 auto;font-size:10px;white-space:nowrap}
+.fine{margin:9px 0 0;font-size:10px;line-height:1.65;color:var(--sub)}
+.fine b{color:var(--ink2)}
+
+/* ---------- flow ---------- */
+.flow{display:flex;gap:0;margin-top:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;
+ padding:11px 6px;box-shadow:var(--shadow);overflow:hidden}
+.fc{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:1px;font-size:9px;font-weight:700;color:var(--sub);letter-spacing:-.03em}
+.fc b{font-size:13px;font-weight:800;color:var(--sub);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.fc.ok b{color:var(--green)} .fc.hi b{color:var(--amber)}
+
+/* ---------- filter ---------- */
+.sticky{position:sticky;top:0;z-index:20;background:linear-gradient(var(--bg) 72%,rgba(0,0,0,0));
+ padding:12px 0 8px;margin-top:6px}
+.tabs{display:flex;gap:5px;background:var(--line2);border-radius:12px;padding:3px}
+html[data-theme="dark"] .tabs{background:#1C2229}
+.tab{flex:1;border:0;background:transparent;color:var(--sub);border-radius:9px;padding:8px 4px;font-size:12.5px;
+ font-weight:750;cursor:pointer;min-height:36px;transition:background .15s,color .15s}
+.tab span{font-variant-numeric:tabular-nums;opacity:.7;margin-left:1px}
+.tab.active{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(25,31,40,.1)}
+.srow{display:flex;gap:8px;align-items:center;margin-top:8px}
+#q{flex:1;min-width:0;font-family:inherit;font-size:13.5px;padding:9px 12px;border:1px solid var(--line);
+ border-radius:11px;background:var(--card);color:var(--ink);-webkit-appearance:none;appearance:none}
+#q::placeholder{color:var(--sub)}
+#q::-webkit-search-cancel-button{-webkit-appearance:none}
+#shown{font-size:10.5px;color:var(--sub);font-weight:750;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* ---------- card ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-top:9px;box-shadow:var(--shadow);
+ overflow:hidden;transition:border-color .15s}
+.card[open]{border-color:var(--line)}
+.card.hide{display:none}
+.sum{list-style:none;cursor:pointer;padding:14px 15px;display:block;-webkit-tap-highlight-color:transparent}
+.sum::-webkit-details-marker{display:none}
+.crow{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.dt{font-size:11.5px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em;color:var(--ink)}
+.pill{font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:6px;line-height:1.5;letter-spacing:-.01em}
+.pill.cat{background:var(--card2);color:var(--ink2);border:1px solid var(--line2)}
+.pill.wait{background:var(--amber-soft);color:var(--amber)}
+.pill.ok{background:var(--green-soft);color:var(--green)}
+.pill.who{border:1px solid var(--line);color:var(--sub)}
+.chev{margin-left:auto;width:7px;height:7px;border-right:1.6px solid var(--sub);border-bottom:1.6px solid var(--sub);
+ transform:rotate(45deg);transition:transform .2s;flex:0 0 auto}
+.card[open] .chev{transform:rotate(-135deg)}
+.title{margin:8px 0 10px;font-size:15px;line-height:1.42;font-weight:750;letter-spacing:-.025em;
+ display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card.d .title{color:var(--ink2);font-weight:700}
+.steps{display:grid;grid-template-columns:repeat(8,1fr);gap:3px}
+.seg{height:4px;border-radius:2px;background:var(--line2)}
+html[data-theme="dark"] .seg{background:#242B34}
+.seg.on{background:var(--green)}
+.seg.cur{background:var(--amber)}
+.cap{display:flex;justify-content:space-between;gap:8px;font-size:10px;color:var(--sub);margin-top:6px;font-weight:700}
+.cap b{font-weight:800}
+.card.p .cap b{color:var(--amber)} .card.d .cap b{color:var(--green)}
+.act{display:flex;gap:6px;align-items:baseline;margin-top:9px;padding-top:9px;border-top:1px solid var(--line2);min-width:0}
+.actk{flex:0 0 auto;font-size:9.5px;font-weight:800;color:var(--blue);background:var(--blue-soft);border-radius:5px;padding:1px 5px}
+.actt{font-size:11.5px;color:var(--ink2);line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+
+/* ---------- detail ---------- */
+.dbody{padding:0 15px 15px;border-top:1px solid var(--line2);margin-top:0;padding-top:12px}
+h4{font-size:10px;font-weight:800;color:var(--sub);letter-spacing:.1em;margin:16px 0 7px;display:flex;gap:6px;align-items:baseline}
+h4:first-child{margin-top:2px}
+h4 .hint{font-weight:700;letter-spacing:0;font-size:9.5px;color:var(--sub);opacity:.9}
+.todo{background:var(--amber-soft);border-radius:12px;padding:11px 12px;border:1px solid rgba(245,159,0,.18)}
+.todo b{display:block;font-size:10px;font-weight:800;color:var(--amber);margin-bottom:3px;letter-spacing:.02em}
+.todo p{margin:0;font-size:12px;line-height:1.6;color:var(--ink)}
+.tl{list-style:none;margin:0;padding:0 0 0 13px;border-left:1.5px solid var(--line)}
+.tl li{position:relative;padding:0 0 10px 10px}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:-4.5px;top:5px;width:8px;height:8px;border-radius:50%;
+ background:var(--card);border:2px solid var(--green)}
+.tl li:last-child::before{border-color:var(--blue)}
+.who{display:inline-flex;gap:5px;align-items:baseline;font-size:10px;font-weight:800;color:var(--ink2);margin-bottom:2px}
+.who i{font-style:normal;font-size:9.5px;font-weight:700;color:var(--sub);font-variant-numeric:tabular-nums}
+.tl p{margin:0;font-size:12px;line-height:1.62;color:var(--ink2)}
+.thread{border:1px solid var(--line);border-radius:13px;padding:11px;margin-bottom:9px;background:var(--card2)}
+.th{display:flex;gap:6px;align-items:baseline;margin-bottom:6px;flex-wrap:wrap}
+.th b{font-size:11px;font-weight:800}
+.th span{font-size:9.5px;font-weight:700;color:var(--sub);border:1px solid var(--line);border-radius:5px;padding:0 5px}
+.tbox{white-space:pre-wrap;font-size:12.5px;line-height:1.62;word-break:keep-all;-webkit-user-select:text;user-select:text;color:var(--ink)}
+.tbox .tg{color:var(--blue);font-weight:650}
+.brow{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.btn{font-size:12px;font-weight:750;padding:9px 13px;min-height:40px;border-radius:10px;border:1px solid var(--line);
+ background:var(--card);color:var(--ink);cursor:pointer;transition:transform .08s,background .15s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--ink);color:var(--card);border-color:var(--ink)}
+html[data-theme="dark"] .btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.ok{background:var(--green);color:#fff;border-color:var(--green)}
+.chint{font-size:9.5px;color:var(--sub);margin:7px 0 0}
+.titles{margin:0;padding-left:16px}
+.titles li{font-size:12px;line-height:1.55;margin-bottom:7px;color:var(--ink2)}
+.titles em{display:block;font-style:normal;font-size:9.5px;font-weight:800;color:var(--blue);margin-bottom:1px}
+.tags{display:flex;flex-wrap:wrap;gap:4px}
+.tags span{font-size:10px;font-weight:650;color:var(--ink2);background:var(--card2);border:1px solid var(--line2);
+ border-radius:6px;padding:2px 6px}
+.imgs{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.imgs a{display:flex;align-items:center;gap:8px;justify-content:space-between;border:1px solid var(--line2);
+ border-radius:9px;padding:8px 10px;background:var(--card2)}
+.imgs .fl{font-size:11px;font-weight:750;color:var(--ink);min-width:0;flex:1 1 auto}
+.imgs .fn{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9px;color:var(--sub);flex:0 0 auto;max-width:45%;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.note{font-size:10.5px;color:var(--sub);margin:7px 0 0;line-height:1.65}
+.nlink{display:inline-flex;align-items:center;gap:4px;margin-top:15px;font-size:11.5px;font-weight:800;color:var(--blue)}
+.empty{font-size:12.5px;color:var(--sub);text-align:center;padding:28px 0}
+footer{margin-top:22px;padding-top:13px;border-top:1px solid var(--line);font-size:10px;color:var(--sub);line-height:1.75}
+footer b{color:var(--ink2)}
+noscript p{background:var(--blue-soft);border-radius:10px;padding:9px 11px;font-size:11px;color:var(--ink2);margin:10px 0 0}
+@media (min-width:560px){.wrap{max-width:600px}}
+@media (prefers-reduced-motion:reduce){.dot.live{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hdr"><div>
+<div class="eyebrow">BLOG EDITORIAL DESK</div>
+<h1>블로그편집국<span>.</span></h1>
+<p class="basis">기준 <b>2026-11-16 22:12 KST</b> · 노션 8행 + 시트 동기화</p>
+</div>
+<button type="button" class="tbtn" id="theme" aria-pressed="false" aria-label="다크 모드로 전환"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg></button>
+</header>
+<nav class="qlinks" aria-label="바로가기">
+<a href="https://app.notion.com/p/4194922da6008060845bec42a46059d3" target="_blank" rel="noopener">노션<i>↗</i></a>
+<a href="https://docs.google.com/spreadsheets/d/1c8FcipNG44ZUJ69eQ-KhxBGAb8QwwZIflGLDlXHO14Q/edit" target="_blank" rel="noopener">시트<i>↗</i></a>
+<a href="https://drive.google.com/drive/folders/1VNE-bTSwyzZdShBN5T-bWqlrR7eXgdvH" target="_blank" rel="noopener">드라이브<i>↗</i></a>
+<a href="https://blog.naver.com/withoutloves" target="_blank" rel="noopener">블로그<i>↗</i></a>
+</nav>
+<div class="stats" role="group" aria-label="핵심 수치"><div class="stat"><span class="sv">8</span><span class="sl">전체</span></div><div class="stat"><span class="sv ok">5</span><span class="sl">발행완료</span></div><div class="stat"><span class="sv wait">3</span><span class="sl">발행대기</span></div></div>
+<div class="flow" role="group" aria-label="8단계 분포"><span class="fc "><b>0</b>기획</span><span class="fc "><b>0</b>리서치</span><span class="fc "><b>0</b>데이터</span><span class="fc "><b>0</b>원고</span><span class="fc "><b>0</b>이미지</span><span class="fc "><b>0</b>키링</span><span class="fc hi"><b>3</b>임시저장</span><span class="fc ok"><b>5</b>발행완료</span></div>
+<noscript><p>자바스크립트가 꺼져 있습니다 — 카드 상세는 눌러서 열 수 있고, 상태 필터·검색·복사 버튼은 동작하지 않습니다.</p></noscript>
+<section class="panel station" aria-label="AI 라이브 스테이션"><div class="phead"><h2>AI 라이브 스테이션</h2><span class="pmeta">노션 담당AI 기준</span></div><div class="baton"><span class="bdot"></span><b>지금 바통은 진국 님</b>임시저장 3건 검수·발행 대기</div><ul class="ailist"><li class="airow"><span class="dot idle" aria-hidden="true"></span><div class="aibody"><div class="aitop"><b>큐</b><span class="aien">Cue</span><span class="airo">심층 리서치</span><span class="aist idle">차례 없음</span></div><p class="ainow">맡은 글 없음 — 오늘 3건 모두 임시저장으로 넘김(노션 담당AI &#x27;진국&#x27;)</p><p class="ailast"><span>마지막</span>11/16 · 11/17 FA 개장(박승욱) · KIA 김호령 리서치 완료</p></div></li><li class="airow"><span class="dot idle" aria-hidden="true"></span><div class="aibody"><div class="aitop"><b>부이</b><span class="aien">Vooy</span><span class="airo">데이터·그래프</span><span class="aist idle">차례 없음</span></div><p class="ainow">맡은 글 없음 — 다음 글감이 &#x27;리서치대기&#x27;로 올라오면 재가동</p><p class="ailast"><span>마지막</span>11/16 · 비교표 2건(후보 5명 보상금 / 김호령 vs 황성빈)</p></div></li><li class="airow"><span class="dot idle" aria-hidden="true"></span><div class="aibody"><div class="aitop"><b>뮤즈</b><span class="aien">Muse</span><span class="airo">수치검증·이미지</span><span class="aist idle">차례 없음</span></div><p class="ainow">맡은 글 없음 — 드라이브 이미지 총 10장 업로드 완료 상태</p><p class="ailast"><span>마지막</span>11/16 20:12 · fa1117 썸네일·카드뉴스 5종 (김호령 5종은 16:47)</p></div></li><li class="airow"><span class="dot idle" aria-hidden="true"></span><div class="aibody"><div class="aitop"><b>키링</b><span class="aien">Keyring</span><span class="airo">키워드·제목·스레드</span><span class="aist idle">차례 없음</span></div><p class="ainow">맡은 글 없음 — 3건 제안 모두 노션에 기록됨</p><p class="ailast"><span>마지막</span>11/16 · 3건 제목 2안·스레드 반말 2안 (함덕주는 그래프 2안 추가)</p></div></li><li class="airow"><span class="dot live" aria-hidden="true"></span><div class="aibody"><div class="aitop"><b>자비스</b><span class="aien">Pickle</span><span class="airo">총괄·원고·임시저장</span><span class="aist live">가동 중</span></div><p class="ainow">15분마다 노션 &#x27;피클 차례&#x27; 감시 — 마지막 21:59 · 다음 22:14, 18:00 글감 발굴·21:00 리포트 스케줄 대기</p><p class="ailast"><span>마지막</span>11/16 21:17 · 박승욱(11/17) 네이버 임시저장 완료(발행 안 함)</p></div></li></ul><div class="sched"><div class="srowi"><span class="snm">✍️ 노션 피클 차례 감시</span><span class="sev">15분마다</span><span class="stm">마지막 21:59 · 다음 22:14</span></div><div class="srowi"><span class="snm">⚾ 매일 블로그 글감 발굴</span><span class="sev">매일 18:00</span><span class="stm">마지막 11/16 18:00 · 다음 11/17 18:00</span></div><div class="srowi"><span class="snm">📊 밤 9시 현황 리포트</span><span class="sev">매일 21:00</span><span class="stm">마지막 11/16 21:00 · 다음 11/17 21:00</span></div></div><p class="fine">큐·부이·뮤즈·키링 상태는 노션 <b>담당AI</b>·<b>상태</b>·<b>last_edited_time</b>에서 파생한 값이며 실시간 프로세스 표시가 아닙니다. 위 3개 스케줄만 실제 실행이 확인된 자비스(피클) 작업입니다.</p></section>
+<div class="sticky">
+<div class="tabs" role="tablist" aria-label="상태 필터">
+<button type="button" class="tab active" data-filter="all" role="tab" aria-selected="true">전체 <span>8</span></button>
+<button type="button" class="tab" data-filter="pending" role="tab" aria-selected="false">발행대기 <span>3</span></button>
+<button type="button" class="tab" data-filter="done" role="tab" aria-selected="false">발행완료 <span>5</span></button>
+</div>
+<div class="srow">
+<input id="q" type="search" placeholder="제목 · 선수 · 키워드 검색" autocomplete="off" aria-label="검색">
+<span id="shown">8건</span>
+</div></div>
+<section class="list" aria-label="글 목록">
+<details class="card p" data-status="임시저장" data-search="박승욱 미신청·170억 계약 종료… 11/17 fa 개장, 롯데 외부 영입 진짜 열릴까? 야구 2026-11-17 임시저장 진국 롯데 자이언츠 fa 박승욱 이동욱 감독 이택근 단장 2027 fa 시장 박승욱 홍창기 최지훈 문승원 김상수 전병우 샐러리캡 fa 170억"><summary class="sum"><div class="crow"><span class="dt">11/17</span><span class="pill cat">야구</span><span class="pill wait">임시저장</span><span class="pill who">진국</span><i class="chev" aria-hidden="true"></i></div><h3 class="title">박승욱 미신청·170억 계약 종료… 11/17 FA 개장, 롯데 외부 영입 진짜 열릴까?</h3><div class="steps" role="img" aria-label="8단계 중 7단계 완료: 기획, 리서치, 데이터, 원고, 이미지, 키링, 임시저장"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg cur"></span><span class="seg off"></span></div><div class="cap"><span>7/8단계 · 키링 제안까지 완료</span><b>발행만 남음</b></div><div class="act"><span class="actk">할 일</span><span class="actt">게시판 &#x27;야구 이모저모 &gt; 스토브리그&#x27; 지정 후 발행 · 가장 최근 저장본(21:17)인지 확인</span></div></summary><div class="dbody"><div class="todo"><b>진국 님 할 일</b><p>발행할 때 게시판을 &#x27;야구 이모저모 &gt; 스토브리그&#x27;로 지정하세요. 11/17 FA 개장 당일 발행이 목표입니다. 임시저장 목록에서 가장 최근 저장본(21:17)인지 확인하고 발행하세요 — 과거 확인 때 구버전 초안이 함께 남아 있던 적이 있습니다.</p></div><h4>AI 진행 요약</h4><ol class="tl"><li><span class="who">큐<i>11-16</i></span><p>심층 리서치 — 2027 FA 승인 22명·미신청 6명(박승욱 포함)·롯데 승인 0명, A(20인+200%/300%)·B(25인+100%/200%)·C(150%) 보상 규정, 유강남 80억·노진혁 50억·한현희 3+1 최대 40억, 이택근 단장·이동욱 감독 발언 원문 확인</p></li><li><span class="who">부이<i>11-16</i></span><p>데이터·그래프 — 후보 5명(홍창기·최지훈·문승원·김상수·전병우) 2026 성적·연봉·보상금 비교표와 차트용 확정 수치표(15.6/10.4 · 7.4/3.7 · 12.0 · 6.0 · 1.35억)</p></li><li><span class="who">뮤즈<i>11-16</i></span><p>수치검증 2차 — [수정 필요] 4건: &#x27;유일하게 2할대 초반&#x27;(전병우 .238도 해당), &#x27;열 배&#x27;→약 9배, &#x27;센터라인 보강&#x27; 직접 발언 확인 불가, 제목 &#x27;4년&#x27;→&#x27;3+1년&#x27;. 나머지 핵심 수치는 검증 완료. 썸네일·카드뉴스 4종 제작·업로드(20:12)</p></li><li><span class="who">키링<i>11-16</i></span><p>4단계 제안 — 세부 키워드 5개, 클릭 유도형 제목 2안, 스레드 반말 2안(링크는 첫 댓글로 분리)</p></li><li><span class="who">피클<i>21:17</i></span><p>뮤즈 수정 반영 후 네이버 스마트에디터 임시저장 완료 — 발행 안 함. 제목 49자·본문 51문단, 소제목 8개 인용구, 이미지 5장 배치, 굵게+주황 배경 7곳</p></li></ol><h4>스레드 홍보 문구<span class="hint">반말 · 링크는 첫 댓글</span></h4><div class="thread"><div class="th"><b>1안 · 사직 팬심 자극형</b><span>본문 + 태그</span></div><div class="tbox" id="park-th1">야 롯데팬들아 내일부터 FA 시장 문 열리는데 진지하게 어케 보냐?
+
+박승욱 미신청해서 내부 FA 0명이고 외부 영입 3명까지 꽉 채울 수 있음.
+게다가 유강남 노진혁 한현희 170억 묶였던 거 이번에 다 끝나서 지갑 열릴 타이밍이거든?
+홍창기 A등급(보상 10.4억+20인 외 1명) 질러서 출루율 사오자 vs 최지훈 B등급(29세 외야수)에 4년 박자 vs 전병우·문승원 C등급으로 유망주 1도 안 주고 실속 챙기자.
+
+너네가 이택근 단장이면 내일 아침 9시에 누구한테 제일 먼저 전화 걸 거 같냐?<span class="tg">#롯데자이언츠 #스토브리그 #KBOFA #프로야구 #사직야구장</span></div><div class="brow"><button type="button" class="btn primary" data-copy="야 롯데팬들아 내일부터 FA 시장 문 열리는데 진지하게 어케 보냐?&#10;&#10;박승욱 미신청해서 내부 FA 0명이고 외부 영입 3명까지 꽉 채울 수 있음.&#10;게다가 유강남 노진혁 한현희 170억 묶였던 거 이번에 다 끝나서 지갑 열릴 타이밍이거든?&#10;홍창기 A등급(보상 10.4억+20인 외 1명) 질러서 출루율 사오자 vs 최지훈 B등급(29세 외야수)에 4년 박자 vs 전병우·문승원 C등급으로 유망주 1도 안 주고 실속 챙기자.&#10;&#10;너네가 이택근 단장이면 내일 아침 9시에 누구한테 제일 먼저 전화 걸 거 같냐?&#10;&#10;#롯데자이언츠 #스토브리그 #KBOFA #프로야구 #사직야구장">본문 복사</button><button type="button" class="btn" data-copy="👇 후보 5명 세부 보상금이랑 롯데 현실 마지노선 정리한 분석 글은 첫 댓글 링크에 남겨둘게!">첫 댓글 복사</button></div><p class="chint">첫 댓글 칸에 붙여 넣고 뒤에 글 링크를 붙이면 됩니다.</p></div><div class="thread"><div class="th"><b>2안 · 팩트 폭격·찬반 대립형</b><span>본문 + 태그</span></div><div class="tbox" id="park-th2">&quot;롯데 170억 풀려서 이번에 대어급 싹 쓸어온다&quot;는 행복회로 그만 돌려라 ㅋㅋㅋ
+
+170억은 4년 동안 나간 합산 총액이지, 내년 샐러리캡 여유가 170억 생겼다는 뜻이 절대 아님.
+실제 캡 여유분 계산기 뚜드려보면 홍창기나 최지훈 잡는 순간 샐캡 다시 턱밑까지 차오를 수도 있거든?
+유망주 내주고 외야 대어 하나 지르는 게 맞냐, 아니면 C등급 실속파로 뎁스만 채우는 게 맞냐?
+
+다들 이번 겨울 롯데의 현실적인 최선이 뭐라고 봄?<span class="tg">#롯데자이언츠 #FA시장 #스토브리그 #야구팬 #야구스타그램</span></div><div class="brow"><button type="button" class="btn primary" data-copy="&quot;롯데 170억 풀려서 이번에 대어급 싹 쓸어온다&quot;는 행복회로 그만 돌려라 ㅋㅋㅋ&#10;&#10;170억은 4년 동안 나간 합산 총액이지, 내년 샐러리캡 여유가 170억 생겼다는 뜻이 절대 아님.&#10;실제 캡 여유분 계산기 뚜드려보면 홍창기나 최지훈 잡는 순간 샐캡 다시 턱밑까지 차오를 수도 있거든?&#10;유망주 내주고 외야 대어 하나 지르는 게 맞냐, 아니면 C등급 실속파로 뎁스만 채우는 게 맞냐?&#10;&#10;다들 이번 겨울 롯데의 현실적인 최선이 뭐라고 봄?&#10;&#10;#롯데자이언츠 #FA시장 #스토브리그 #야구팬 #야구스타그램">본문 복사</button><button type="button" class="btn" data-copy="👇 롯데 샐러리캡 현실과 후보별 1년차 실부담액 비교 본문은 첫 댓글 확인!">첫 댓글 복사</button></div><p class="chint">첫 댓글 칸에 붙여 넣고 뒤에 글 링크를 붙이면 됩니다.</p></div><h4>키링 제목 2안</h4><ol class="titles"><li><em>사직 팬 현실 직시형</em>170억 털어낸 롯데, 진짜 지갑 열릴까? 11/17 개장 &#x27;최지훈 vs 홍창기 vs C등급&#x27; 사직 계산서</li><li><em>팩트 폭격형</em>박승욱 잔류로 내부 FA 0명! &#x27;외부 영입 한도 3명&#x27; 채울 롯데의 진짜 실속 카드는?</li></ol><h4>세부 키워드 5</h4><div class="tags"><span>2027 KBO FA 승인 선수</span><span>롯데 자이언츠 FA 영입</span><span>박승욱 FA 미신청</span><span>롯데 샐러리캡 170억</span><span>최지훈 롯데 FA 이적</span></div><h4>드라이브 이미지<span class="hint">5개</span></h4><ul class="imgs"><li><a href="https://drive.google.com/file/d/1o4S5iiQOgDAcWhqHOVsu-cPbDWoLrepa/view" target="_blank" rel="noopener"><span class="fl">대표 썸네일</span><span class="fn">fa1117_thumbnail.png ↗</span></a></li><li><a href="https://drive.google.com/file/d/1ET6jJDlaRuysY3l7T551rUvo4Z36VkaQ/view" target="_blank" rel="noopener"><span class="fl">카드① 2027 FA 구도·롯데 한도</span><span class="fn">fa1117_card_1_landscape.png ↗</span></a></li><li><a href="https://drive.google.com/file/d/133CSAe9-96HAQ_IDKvEzyXXZcg14lV0d/view" target="_blank" rel="noopener"><span class="fl">카드② 보상 등급·후보 5명 보상금</span><span class="fn">fa1117_card_2_compensation.png ↗</span></a></li><li><a href="https://drive.google.com/file/d/1KE1iqQYTeNJyyn1doeYf8CiFuOztfEpR/view" target="_blank" rel="noopener"><span class="fl">카드③ 외야 A·B vs 내야·불펜 C</span><span class="fn">fa1117_card_3_compare.png ↗</span></a></li><li><a href="https://drive.google.com/file/d/1-GYNWEQrfkZT4_LFHEJBStGezbyDGRFd/view" target="_blank" rel="noopener"><span class="fl">카드④ 사직 계산서 요약</span><span class="fn">fa1117_card_4_calc.png ↗</span></a></li></ul><p class="note">드라이브 &#x27;블로그편집국_이미지&#x27; 폴더에 업로드된 5개 파일입니다(20:12 KST).</p><a class="nlink" href="https://app.notion.com/p/170-11-17-FA-41a4922da60081deb410f4a46c89b120" target="_blank" rel="noopener">노션 원문 열기 ↗</a></div></details>
+<details class="card p" data-status="임시저장" data-search="kia 김호령 c등급 fa(보상선수 없음)와 롯데 중견수 보강 시나리오 야구 2026-11-16 임시저장 진국 김호령 kia 타이거즈 fa c등급 롯데 자이언츠 중견수 김호령 황성빈 중견수 보상선수 3.75억 c등급"><summary class="sum"><div class="crow"><span class="dt">11/16</span><span class="pill cat">야구</span><span class="pill wait">임시저장</span><span class="pill who">진국</span><i class="chev" aria-hidden="true"></i></div><h3 class="title">KIA 김호령 C등급 FA(보상선수 없음)와 롯데 중견수 보강 시나리오</h3><div class="steps" role="img" aria-label="8단계 중 7단계 완료: 기획, 리서치, 데이터, 원고, 이미지, 키링, 임시저장"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg cur"></span><span class="seg off"></span></div><div class="cap"><span>7/8단계 · 키링 제안까지 완료</span><b>발행만 남음</b></div><div class="act"><span class="actk">할 일</span><span class="actt">&#x27;야구 이모저모 &gt; 스토브리그&#x27; 지정 후 발행 · 발행 후 스레드 1안 + 첫 댓글 링크</span></div></summary><div class="dbody"><div class="todo"><b>진국 님 할 일</b><p>게시판 &#x27;야구 이모저모 &gt; 스토브리그&#x27;를 지정해 발행하세요. 발행 후 스레드 1안(찬반 대립형)으로 홍보하고 첫 댓글에 글 링크를 넣으면 됩니다.</p></div><h4>AI 진행 요약</h4><ol class="tl"><li><span class="who">큐<i>11-16</i></span><p>심층 리서치 — KBO 공식 기록과 OSEN 11/15 보도를 분리해 표기, 11/16 FA 승인 22명 공시·황성빈 기록·이동욱 감독 발언 확인. (처음 적은 &#x27;132경기&#x27; 수치는 뮤즈 1차 검증에서 141경기로 정정)</p></li><li><span class="who">부이<i>11-16</i></span><p>데이터 — 김호령 vs 황성빈 비교표(도루 17 vs 55, 중견수 1,172 vs 832이닝, 수비율 .989 vs .978), C등급 보상금 3억7,500만 원 산식. 이미지 제작 수단이 없어 PNG는 뮤즈가 맡음</p></li><li><span class="who">뮤즈<i>11-16</i></span><p>1차 3건·2차 5건 정정 지적(김호령 타격 수치, &#x27;가장 취약&#x27; 표현, 손아섭 만 나이 / B등급 25인 보호명단, 손아섭 보상금 미발생, 황성빈 KBO 타격 수치). 썸네일·카드뉴스 4종 제작·업로드(16:47)</p></li><li><span class="who">키링<i>11-16</i></span><p>4단계 제안 — 세부 키워드 5개, 제목 2안(사직 팬 토론형·실속 분석형), 스레드 반말 2안</p></li><li><span class="who">피클<i>18:35</i></span><p>뮤즈 2차 5건 반영 후 네이버 임시저장 — 발행 안 함. 38블록이 원고 파일과 문단별 1:1 일치, 리터럴 줄바꿈 0건, 소제목 5개 인용구, 이미지 5장</p></li></ol><h4>스레드 홍보 문구<span class="hint">반말 · 링크는 첫 댓글</span></h4><div class="thread"><div class="th"><b>1안 · 찬반 대립·팬심 자극형</b><span>본문 + 태그</span></div><div class="tbox" id="kim-th1">야 롯데팬들아 솔직히 김호령 C등급 풀린 거 어케 생각하냐?
+
+보상선수 한 명도 안 줘도 되고 현금 딱 3.75억만 내면 됨.
+이동욱 감독이 중견수 수비 약하다고 대놓고 짚었는데, 황성빈 도루 55개는 살리면서 김호령 수비 붙이면 외야 구멍 싹 지워지는 거 아니냐는 쪽이랑,
+올해 삼진 156개나 처먹은 35세 타자를 또 돈 주고 사오냐는 쪽으로 갈리던데.
+
+유망주 출혈 없는 1년짜리 실속 영입이다 vs 삼진 머신 데려와서 혈압 오르지 마라, 다들 투표 좀 해봐!<span class="tg">#롯데자이언츠 #기아타이거즈 #김호령 #스토브리그 #KBOFA #프로야구</span></div><div class="brow"><button type="button" class="btn primary" data-copy="야 롯데팬들아 솔직히 김호령 C등급 풀린 거 어케 생각하냐?&#10;&#10;보상선수 한 명도 안 줘도 되고 현금 딱 3.75억만 내면 됨.&#10;이동욱 감독이 중견수 수비 약하다고 대놓고 짚었는데, 황성빈 도루 55개는 살리면서 김호령 수비 붙이면 외야 구멍 싹 지워지는 거 아니냐는 쪽이랑,&#10;올해 삼진 156개나 처먹은 35세 타자를 또 돈 주고 사오냐는 쪽으로 갈리던데.&#10;&#10;유망주 출혈 없는 1년짜리 실속 영입이다 vs 삼진 머신 데려와서 혈압 오르지 마라, 다들 투표 좀 해봐!&#10;&#10;#롯데자이언츠 #기아타이거즈 #김호령 #스토브리그 #KBOFA #프로야구">본문 복사</button><button type="button" class="btn" data-copy="👇 황성빈 세부 수비 스탯 비교랑 현실적 계약 마지노선 정리한 글은 첫 댓글 확인!">첫 댓글 복사</button></div><p class="chint">첫 댓글 칸에 붙여 넣고 뒤에 글 링크를 붙이면 됩니다.</p></div><div class="thread"><div class="th"><b>2안 · 현실 직시·계산서형</b><span>본문 + 태그</span></div><div class="tbox" id="kim-th2">2027 FA 외야 시장 열렸는데 롯데한테 김호령보다 가성비 좋은 카드가 있긴 함?
+
+최지훈은 B등급에 SSG 잔류 유력이고 배정대는 A등급인데, 김호령은 &#x27;보상선수 0원&#x27; C등급임.
+손아섭처럼 다년 보장 말고 1+1년에 인센티브 걸고 딱 6억 선에서 끊으면 롯데 입장에서 손해 볼 거 1도 없지 않냐?
+아니면 이것도 오버페이임? 다들 상한선 얼마까지 보냐?<span class="tg">#롯데자이언츠 #KBO리그 #외야수보강 #황성빈 #사직야구장</span></div><div class="brow"><button type="button" class="btn primary" data-copy="2027 FA 외야 시장 열렸는데 롯데한테 김호령보다 가성비 좋은 카드가 있긴 함?&#10;&#10;최지훈은 B등급에 SSG 잔류 유력이고 배정대는 A등급인데, 김호령은 &#x27;보상선수 0원&#x27; C등급임.&#10;손아섭처럼 다년 보장 말고 1+1년에 인센티브 걸고 딱 6억 선에서 끊으면 롯데 입장에서 손해 볼 거 1도 없지 않냐?&#10;아니면 이것도 오버페이임? 다들 상한선 얼마까지 보냐?&#10;&#10;#롯데자이언츠 #KBO리그 #외야수보강 #황성빈 #사직야구장">본문 복사</button><button type="button" class="btn" data-copy="👇 롯데가 제시해야 할 1년차 총지출 상한선 분석 본문은 첫 댓글 링크에!">첫 댓글 복사</button></div><p class="chint">첫 댓글 칸에 붙여 넣고 뒤에 글 링크를 붙이면 됩니다.</p></div><h4>키링 제목 2안</h4><ol class="titles"><li><em>사직 팬 토론형</em>보상선수 0명에 3.75억… 롯데, 뜬공 지우개 김호령 진짜 질러야 할까? (황성빈 수비 비교·마지노선)</li><li><em>실속 분석형</em>B등급 아닌 C등급 대박? 롯데 중견수 잔혹사 끝낼 &#x27;김호령 1+1년&#x27; 현실적 계약 계산서</li></ol><h4>세부 키워드 5</h4><div class="tags"><span>김호령 FA C등급</span><span>롯데 자이언츠 중견수 영입</span><span>김호령 보상금 3.75억</span><span>2027 KBO FA 승인 선수</span><span>황성빈 김호령 수비 비교</span></div><h4>드라이브 이미지<span class="hint">5개</span></h4><ul class="imgs"><li><a href="https://drive.google.com/file/d/1W8y-5Xu0wO0oAv21iukPsshg90DBuIJs/view" target="_blank" rel="noopener"><span class="fl">대표 썸네일</span><span class="fn">kim_thumbnail.png ↗</span></a></li><li><a href="https://drive.google.com/file/d/1vEVYhnC-RkFFfuDgseSMvqZYhjxDEEI1/view" target="_blank" rel="noopener"><span class="fl">카드A 김호령 vs 황성빈 비교</span><span class="fn">kim_card_a_compare.png ↗</span></a></li><li><a href="https://drive.google.com/file/d/1mzsYUbhQEgPEaZK_CY7vMfvOmJC_H77w/view" target="_blank" rel="noopener"><span class="fl">카드B C등급 보상 구조</span><span class="fn">kim_card_b_compensation.png ↗</span></a></li><li><a href="https://drive.google.com/file/d/1Ng7pyPKmTsdZu4xkSjNQ_RCfDdiLmSdR/view" target="_blank" rel="noopener"><span class="fl">카드C 김호령 2026 요약</span><span class="fn">kim_card_c_season.png ↗</span></a></li><li><a href="https://drive.google.com/file/d/1GJHnWyZjrVsBNoEsFpbyHwT4UT-kY3yP/view" target="_blank" rel="noopener"><span class="fl">카드D 영입 기준선(글쓴이 제안)</span><span class="fn">kim_card_d_baseline.png ↗</span></a></li></ul><p class="note">드라이브 &#x27;블로그편집국_이미지&#x27; 폴더에 업로드된 5개 파일입니다(16:47 KST).</p><a class="nlink" href="https://app.notion.com/p/KIA-C-FA-4194922da6008052bb0fd9a2bf4b79a9" target="_blank" rel="noopener">노션 원문 열기 ↗</a></div></details>
+<details class="card p" data-status="임시저장" data-search="보상 0원 함덕주, 2~3억 &#x27;보험&#x27;이면 ok vs 홍건희 꼴 날까? 롯데 좌완 불펜 해부 야구 2026-11-16 임시저장 진국 함덕주 옵트아웃 롯데 자이언츠 좌완 불펜 kbo 스토브리그 함덕주 lg 좌완 불펜 옵트아웃 홍건희 보상 0원"><summary class="sum"><div class="crow"><span class="dt">11/16</span><span class="pill cat">야구</span><span class="pill wait">임시저장</span><span class="pill who">진국</span><i class="chev" aria-hidden="true"></i></div><h3 class="title">보상 0원 함덕주, 2~3억 &#x27;보험&#x27;이면 OK vs 홍건희 꼴 날까? 롯데 좌완 불펜 해부</h3><div class="steps" role="img" aria-label="8단계 중 7단계 완료: 기획, 리서치, 데이터, 원고, 이미지, 키링, 임시저장"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg cur"></span><span class="seg off"></span></div><div class="cap"><span>7/8단계 · 키링 제안까지 완료</span><b>발행만 남음</b></div><div class="act"><span class="actk">할 일</span><span class="actt">&#x27;야구 이모저모 &gt; 스토브리그&#x27; 지정 후 발행 · 스레드 1안(찬반 토론형) 사용</span></div></summary><div class="dbody"><div class="todo"><b>진국 님 할 일</b><p>게시판 &#x27;야구 이모저모 &gt; 스토브리그&#x27;를 지정해 발행하세요. 스레드 홍보는 1안(찬반 토론형)을 쓰고 첫 댓글에 글 링크를 넣으면 됩니다.</p></div><h4>AI 진행 요약</h4><ol class="tl"><li><span class="who">진국·제미나이<i>11-16</i></span><p>사용자가 제미나이 심층 분석 결과를 받아 전달 → 피클이 검증 수치만 골라 원고화. 확인 불가 항목(개별 연봉·인센티브 배분·미공개 피안타율·구원진 합산 ERA 등)은 본문·이미지에서 제외</p></li><li><span class="who">피클<i>07:32</i></span><p>원고 56문단 6,939자, 소제목 12개, 해시태그 10개, 이미지 5장(1080×1080) 제작·배치 후 네이버 스마트에디터 임시저장 — 발행 안 함</p></li><li><span class="who">키링<i>11-16</i></span><p>4단계 제안 — 세부 키워드 5개, 제목 2안, 스레드 반말 2안, 추가 그래프 아이디어 2안(FA 불펜 시장 vs 롯데 좌완 / 2023 vs 2026 지표)</p></li><li><span class="who">피클<i>16:42</i></span><p>고정 서식(바른히피 16/32px · 기본 인용구 소제목 · 굵게+주황 배경) 기준으로 재저장 — 발행 대기</p></li></ol><h4>스레드 홍보 문구<span class="hint">반말 · 링크는 첫 댓글</span></h4><div class="thread"><div class="th"><b>1안 · 찬반 토론형</b><span>본문 + 태그</span></div><div class="tbox" id="ham-th1">야 롯데팬들아 솔직히 함덕주 옵트아웃 풀리면 긁어봐야 하냐 말아야 하냐?
+
+보상선수 0원에 2~3억 옵션 걸고 1년 쓰는 갓성비 보험이라는 쪽이랑, 최근 3년 연속 ERA 6점대에 구속 139km 나온 투수를 홍건희 꼴 날 거 뻔한데 왜 줍냐는 쪽으로 갈리던데.
+
+우리 좌완 불펜 뎁스 보면 무조건 주워야 한다 vs 아무리 그래도 돈 낭비다, 다들 어떻게 봄?<span class="tg">#롯데자이언츠 #KBO스토브리그 #함덕주 #야구스타그램 #프로야구</span></div><div class="brow"><button type="button" class="btn primary" data-copy="야 롯데팬들아 솔직히 함덕주 옵트아웃 풀리면 긁어봐야 하냐 말아야 하냐?&#10;&#10;보상선수 0원에 2~3억 옵션 걸고 1년 쓰는 갓성비 보험이라는 쪽이랑, 최근 3년 연속 ERA 6점대에 구속 139km 나온 투수를 홍건희 꼴 날 거 뻔한데 왜 줍냐는 쪽으로 갈리던데.&#10;&#10;우리 좌완 불펜 뎁스 보면 무조건 주워야 한다 vs 아무리 그래도 돈 낭비다, 다들 어떻게 봄?&#10;&#10;#롯데자이언츠 #KBO스토브리그 #함덕주 #야구스타그램 #프로야구">본문 복사</button><button type="button" class="btn" data-copy="👇 세부 스탯 비교랑 계약 시나리오 정리한 분석 글은 첫 번째 댓글에 남겨둘게!">첫 댓글 복사</button></div><p class="chint">첫 댓글 칸에 붙여 넣고 뒤에 글 링크를 붙이면 됩니다.</p></div><div class="thread"><div class="th"><b>2안 · 현실 직시형</b><span>본문 + 태그</span></div><div class="tbox" id="ham-th2">2027 FA 시장에 좌완 불펜 0명인 거 실화냐?
+
+김진욱 선발 박히고 나면 좌완 불펜 정현수 홍민기 이영재뿐인데, 함덕주 보상금 0원에 1+1년으로 긁어보는 거 솔직히 남는 장사 아니냐? 아니면 또 부상으로 드러누울까 봐 무섭냐?<span class="tg">#롯데자이언츠 #LG트윈스 #좌완불펜 #스토브리그</span></div><div class="brow"><button type="button" class="btn primary" data-copy="2027 FA 시장에 좌완 불펜 0명인 거 실화냐?&#10;&#10;김진욱 선발 박히고 나면 좌완 불펜 정현수 홍민기 이영재뿐인데, 함덕주 보상금 0원에 1+1년으로 긁어보는 거 솔직히 남는 장사 아니냐? 아니면 또 부상으로 드러누울까 봐 무섭냐?&#10;&#10;#롯데자이언츠 #LG트윈스 #좌완불펜 #스토브리그">본문 복사</button><button type="button" class="btn" data-copy="👇 역대 옵트아웃 사례랑 롯데 적합성 분석 링크는 첫 댓글 확인!">첫 댓글 복사</button></div><p class="chint">첫 댓글 칸에 붙여 넣고 뒤에 글 링크를 붙이면 됩니다.</p></div><h4>키링 제목 2안</h4><ol class="titles"><li><em>보상 0원·혜자 복권형</em>보상선수 0원 좌완 불펜 / 2억짜리 혜자 복권 vs 제2의 홍건희?</li><li><em>시장 구도형</em>FA 시장에 좌완 0명인데… 롯데, &#x27;ERA 6점대&#x27; 함덕주 긁어볼까?</li></ol><h4>세부 키워드 5</h4><div class="tags"><span>함덕주 옵트아웃</span><span>롯데 자이언츠 좌완 불펜</span><span>KBO 보상선수 0원</span><span>2027 KBO 스토브리그 FA</span><span>함덕주 연봉 계약</span></div><h4>드라이브 이미지<span class="hint">0개</span></h4><p class="note">이 글의 이미지 5장은 드라이브 폴더에 올라가 있지 않습니다(임시저장 본문에만 배치). 발행 화면에서 확인하세요.</p><p class="note">이 행은 큐·부이·뮤즈가 따로 기록을 남기지 않은 건입니다. 검증은 제미나이 결과 기반이고, 협상 개시일은 12/1(뉴시스 등)과 11/24(엑스포츠뉴스 등) 보도가 갈려 본문에 두 날짜를 함께 적었습니다.</p><a class="nlink" href="https://app.notion.com/p/0-2-3-OK-vs-4194922da6008145bb61c9bb3395fa47" target="_blank" rel="noopener">노션 원문 열기 ↗</a></div></details>
+<details class="card d" data-status="발행완료" data-search="후반기 타율 0.333 반등 vs 1루 실책 10개… 나승엽이 롯데 2027 내야 교통정리의 키인 이유 야구 2026-11-15 발행완료 완료 나승엽 롯데 자이언츠 1루수 이동욱 김민성"><summary class="sum"><div class="crow"><span class="dt">11/15</span><span class="pill cat">야구</span><span class="pill ok">발행완료</span><span class="pill who">완료</span><i class="chev" aria-hidden="true"></i></div><h3 class="title">후반기 타율 0.333 반등 vs 1루 실책 10개… 나승엽이 롯데 2027 내야 교통정리의 키인 이유</h3><div class="steps" role="img" aria-label="8단계 중 8단계 완료: 기획, 리서치, 데이터, 원고, 이미지, 키링, 임시저장, 발행완료"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></div><div class="cap"><span>8/8단계 · 8단계 전부 완료</span><b>발행 완료</b></div></summary><div class="dbody"><p class="note">2026-11-15에 네이버 블로그 게시 완료.</p><h4>핵심 키워드</h4><div class="tags"><span>나승엽</span><span>롯데 자이언츠</span><span>1루수</span><span>이동욱</span><span>김민성</span></div><a class="nlink" href="https://app.notion.com/p/0-333-vs-1-10-2027-4194922da60080eab4bada064cc0932f" target="_blank" rel="noopener">노션 기록 열기 ↗</a></div></details>
+<details class="card d" data-status="발행완료" data-search="이동욱호 롯데 자이언츠 2027 fa 3대 과제와 현실 시나리오 야구 2026-11-14 발행완료 완료 롯데 자이언츠 fa 이동욱 감독 김호령 최지훈 20인 보호명단"><summary class="sum"><div class="crow"><span class="dt">11/14</span><span class="pill cat">야구</span><span class="pill ok">발행완료</span><span class="pill who">완료</span><i class="chev" aria-hidden="true"></i></div><h3 class="title">이동욱호 롯데 자이언츠 2027 FA 3대 과제와 현실 시나리오</h3><div class="steps" role="img" aria-label="8단계 중 8단계 완료: 기획, 리서치, 데이터, 원고, 이미지, 키링, 임시저장, 발행완료"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></div><div class="cap"><span>8/8단계 · 8단계 전부 완료</span><b>발행 완료</b></div></summary><div class="dbody"><p class="note">2026-11-14에 네이버 블로그 게시 완료.</p><h4>핵심 키워드</h4><div class="tags"><span>롯데 자이언츠 FA</span><span>이동욱 감독</span><span>김호령</span><span>최지훈</span><span>20인 보호명단</span></div><a class="nlink" href="https://app.notion.com/p/2027-FA-3-4194922da6008044a425fd53964f2f78" target="_blank" rel="noopener">노션 기록 열기 ↗</a></div></details>
+<details class="card d" data-status="발행완료" data-search="39개월 아이 동반 벳푸 스기노이 호텔 2박 후기 여행·호캉스 2026-11-13 발행완료 완료 벳푸 스기노이 호텔 아기랑 일본여행 아쿠아가든 침대가드 소라관"><summary class="sum"><div class="crow"><span class="dt">11/13</span><span class="pill cat">여행·호캉스</span><span class="pill ok">발행완료</span><span class="pill who">완료</span><i class="chev" aria-hidden="true"></i></div><h3 class="title">39개월 아이 동반 벳푸 스기노이 호텔 2박 후기</h3><div class="steps" role="img" aria-label="8단계 중 8단계 완료: 기획, 리서치, 데이터, 원고, 이미지, 키링, 임시저장, 발행완료"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></div><div class="cap"><span>8/8단계 · 8단계 전부 완료</span><b>발행 완료</b></div></summary><div class="dbody"><p class="note">2026-11-13에 네이버 블로그 게시 완료.</p><h4>핵심 키워드</h4><div class="tags"><span>벳푸 스기노이 호텔</span><span>아기랑 일본여행</span><span>아쿠아가든</span><span>침대가드</span><span>소라관</span></div><a class="nlink" href="https://app.notion.com/p/39-2-4194922da60080bb9ce7e2239c7d1bdf" target="_blank" rel="noopener">노션 기록 열기 ↗</a></div></details>
+<details class="card d" data-status="발행완료" data-search="2027 kbo fa 28명 총정리 야구 2026-11-13 발행완료 완료 2027 kbo fa fa 등급 구자욱 원태인 양의지"><summary class="sum"><div class="crow"><span class="dt">11/13</span><span class="pill cat">야구</span><span class="pill ok">발행완료</span><span class="pill who">완료</span><i class="chev" aria-hidden="true"></i></div><h3 class="title">2027 KBO FA 28명 총정리</h3><div class="steps" role="img" aria-label="8단계 중 8단계 완료: 기획, 리서치, 데이터, 원고, 이미지, 키링, 임시저장, 발행완료"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></div><div class="cap"><span>8/8단계 · 8단계 전부 완료</span><b>발행 완료</b></div></summary><div class="dbody"><p class="note">2026-11-13에 네이버 블로그 게시 완료.</p><h4>핵심 키워드</h4><div class="tags"><span>2027 KBO FA</span><span>FA 등급</span><span>구자욱</span><span>원태인</span><span>양의지</span></div><a class="nlink" href="https://app.notion.com/p/2027-KBO-FA-28-4194922da60080628e8ec595c409b811" target="_blank" rel="noopener">노션 기록 열기 ↗</a></div></details>
+<details class="card d" data-status="발행완료" data-search="마운자로 후쿠오카 처방 국내 1호 실전 후기 여행·리뷰 2026-11-12 발행완료 완료 일본 마운자로 후쿠오카 마운자로 모데나클리닉 마운자로 통관 마운자로 가격"><summary class="sum"><div class="crow"><span class="dt">11/12</span><span class="pill cat">여행·리뷰</span><span class="pill ok">발행완료</span><span class="pill who">완료</span><i class="chev" aria-hidden="true"></i></div><h3 class="title">마운자로 후쿠오카 처방 국내 1호 실전 후기</h3><div class="steps" role="img" aria-label="8단계 중 8단계 완료: 기획, 리서치, 데이터, 원고, 이미지, 키링, 임시저장, 발행완료"><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span><span class="seg on"></span></div><div class="cap"><span>8/8단계 · 8단계 전부 완료</span><b>발행 완료</b></div></summary><div class="dbody"><p class="note">2026-11-12에 네이버 블로그 게시 완료.</p><h4>핵심 키워드</h4><div class="tags"><span>일본 마운자로</span><span>후쿠오카 마운자로</span><span>모데나클리닉</span><span>마운자로 통관</span><span>마운자로 가격</span></div><a class="nlink" href="https://app.notion.com/p/1-4194922da600809a928df4e4d4546ce0" target="_blank" rel="noopener">노션 기록 열기 ↗</a></div></details>
+</section>
+<p id="empty" class="empty" hidden>조건에 맞는 글이 없습니다.</p>
+<footer>데이터 출처 · 노션 <b>블로그편집국</b>(8행) · 구글 시트 <b>발행관리</b> · 드라이브 <b>블로그편집국_이미지</b>(10개 파일) · 블로그 스케줄 3종 실행 기록을 <b>2026-11-16 22:12 KST</b>에 확인.<br>외부 CDN·폰트·스크립트를 쓰지 않아 인터넷 없이 열립니다(아이폰 파일 앱 · 사파리). 복사 버튼은 사파리에서 바로 되고, 파일 앱 미리보기(Quick Look)에서는 되지 않을 수 있습니다.<br>이 화면에는 블로그 작업 데이터만 있으며 전화번호·이메일·생일·주소는 넣지 않았습니다.</footer>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  var tbtn = document.getElementById('theme');
+
+  function setTheme(mode, persist) {
+    if (mode === 'dark') { root.setAttribute('data-theme', 'dark'); }
+    else { root.removeAttribute('data-theme'); }
+    if (tbtn) {
+      tbtn.setAttribute('aria-pressed', mode === 'dark' ? 'true' : 'false');
+      tbtn.setAttribute('aria-label', mode === 'dark' ? '\uB77C\uC774\uD2B8 \uBAA8\uB4DC\uB85C \uC804\uD658' : '\uB2E4\uD06C \uBAA8\uB4DC\uB85C \uC804\uD658');
+    }
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) { meta.setAttribute('content', mode === 'dark' ? '#0F1216' : '#F4F6F9'); }
+    if (persist) { try { localStorage.setItem('bd-theme', mode); } catch (err) {} }
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem('bd-theme'); } catch (err) {}
+  if (saved === 'dark' || saved === 'light') { setTheme(saved, false); }
+  if (tbtn) {
+    tbtn.addEventListener('click', function () {
+      setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
+    });
+  }
+
+  var tabs = document.querySelectorAll('.tab');
+  var cards = document.querySelectorAll('.card');
+  var q = document.getElementById('q');
+  var empty = document.getElementById('empty');
+  var shown = document.getElementById('shown');
+  var filter = 'all';
+  var PEND = '\uC784\uC2DC\uC800\uC7A5';
+  var DONE = '\uBC1C\uD589\uC644\uB8CC';
+
+  function apply() {
+    var term = ((q && q.value) || '').trim().toLowerCase();
+    var n = 0, i;
+    for (i = 0; i < cards.length; i++) {
+      var c = cards[i];
+      var st = c.getAttribute('data-status') || '';
+      var okF = filter === 'all' || (filter === 'pending' && st === PEND) || (filter === 'done' && st === DONE);
+      var blob = c.getAttribute('data-search') || '';
+      var okQ = !term || blob.indexOf(term) !== -1;
+      var vis = okF && okQ;
+      c.classList.toggle('hide', !vis);
+      if (vis) { n++; }
+    }
+    if (empty) { empty.hidden = n !== 0; }
+    if (shown) { shown.textContent = n + '\uAC74'; }
+  }
+
+  function pick(btn) {
+    var i;
+    for (i = 0; i < tabs.length; i++) {
+      tabs[i].classList.remove('active');
+      tabs[i].setAttribute('aria-selected', 'false');
+    }
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    filter = btn.getAttribute('data-filter');
+    apply();
+  }
+
+  for (var t = 0; t < tabs.length; t++) {
+    tabs[t].addEventListener('click', function (ev) { pick(ev.currentTarget); });
+  }
+  if (q) { q.addEventListener('input', apply); }
+
+  function legacyCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '0';
+    ta.style.left = '0';
+    ta.style.width = '1px';
+    ta.style.height = '1px';
+    ta.style.padding = '0';
+    ta.style.border = '0';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    try { ta.focus(); } catch (e1) {}
+    try { ta.select(); } catch (e2) {}
+    try { ta.setSelectionRange(0, text.length); } catch (e3) {}
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e4) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  function flash(btn, msg, good) {
+    if (!btn.getAttribute('data-label')) { btn.setAttribute('data-label', btn.textContent); }
+    btn.textContent = msg;
+    btn.classList.toggle('ok', !!good);
+    setTimeout(function () {
+      btn.textContent = btn.getAttribute('data-label');
+      btn.classList.remove('ok');
+    }, 1700);
+  }
+
+  function doCopy(btn) {
+    var text = btn.getAttribute('data-copy') || '';
+    function after(ok) { flash(btn, ok ? '\uBCF5\uC0AC\uB428 \u2713' : '\uC9C0\uC6D0\uB418\uC9C0 \uC54A\uC74C', ok); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { after(true); }, function () { after(legacyCopy(text)); });
+    } else {
+      after(legacyCopy(text));
+    }
+  }
+
+  document.addEventListener('click', function (ev) {
+    var el = ev.target;
+    while (el && el.getAttribute && el.getAttribute('data-copy') === null) { el = el.parentNode; }
+    if (el && el.getAttribute && el.getAttribute('data-copy') !== null) { doCopy(el); }
+  });
+
+  apply();
+})();
+</script>
+</body>
+</html>
